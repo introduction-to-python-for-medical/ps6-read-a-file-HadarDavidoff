@@ -1,15 +1,15 @@
 def create_codon_dict(file_path):
     dicofco = {}
     
-    # Open the file and read lines
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         rows = file.readlines()
-    
-    # Loop through each row (starting from 1 if you want to skip header)
-    for r in rows[0:]:  # Skipping the first row if it's a header
-        cells = r.strip().split('\t')  # Split by tab to get columns
-        key = cells[0]  # Assuming the key is in the first column
-        value = cells[2]  # Assuming the value is in the third column
+
+    for r in rows[1:]:  # דילוג על הכותרת אם יש אחת
+        cells = r.strip().split('\t')  
+        if len(cells) < 3:  # בדיקה למניעת גישה מחוץ לטווח
+            continue  
+        key = cells[0]  
+        value = cells[2]  
         dicofco[key] = value
     
-    return dicofco 
+    return dicofco
